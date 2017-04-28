@@ -1,0 +1,3 @@
+Colocando os dados num software de astronomia desenvolvido pelo Observatório Naval dos EUA, conseguiram reconstruir a órbita do asteróide.
+A órbita do asteróide, cuja onda de impacto ao cair perto da cidade russa de Cheliabinsk a 15 de fevereiro causou mais de mil feridos, foi calculada por dois cientistas colombianos, com base nos inúmeros vídeos amadores que captaram a sua entrada na atmosfera.
+Este pertence a uma família conhecida como Apollo, que cruzam a órbita da Terra.

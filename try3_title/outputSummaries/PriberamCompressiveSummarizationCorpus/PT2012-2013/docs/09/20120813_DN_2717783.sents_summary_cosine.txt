@@ -1,0 +1,3 @@
+O software operacional foi carregado para a memória do veículo durante o voo da missão Mars Science Laboratory, que comanda o Curiosity a partir da Terra.
+Neste momento Curiosity não irá voar por isso a versão antiga do software já não é necessária.
+"Planeámos a missão de forma a podermos atualizar o software quando for necessário durante as diferentes fases", explicou Ben Cichy, engenheiro de software do Jet Propulsion Laboratory em Pasadena, Califórnia (EUA), ao jornal espanhol ABC.

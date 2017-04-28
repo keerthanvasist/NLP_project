@@ -105,46 +105,6 @@ for article in articles_corpus:
 
 
 # for the test article
-'''
-fp = open("test.sents",'r')
-articles_test = []
-art = fp.read()
-articles_test.append(art)
-for article in articles_test:
-	lines = article.split()
-	tf_map = {}
-	for word in lines:
-		if word not in stop:
-			if word not in tf_map:
-				tf_map[word] = 0
-			else:
-				tf_map[word] += 1
-	for key in tf_map:
-		tf_map[key] = tf_map[key] * 1.0 * idf_map[key]
-	#for each sentence calculate the tf-idf score
-	lines = article.split('\n')
-	sentence_dict = {}
-	for line in lines:
-		words = line.split()
-		tf_idf_sum = 0
-		sentence_length = 0
-		for word in words:
-			if word in tf_map:
-				sentence_length += 1
-				tf_idf_sum += tf_map[word]
-		if sentence_length == 0:
-			sentence_dict[line] = tf_idf_sum
-		else:
-			sentence_dict[line] = tf_idf_sum * 1.0/(sentence_length)
-	print "****************"
-	print heapq.nlargest(3, sentence_dict, key=sentence_dict.get)
-	print article
-	print "****************"
-'''
-	
-
-
-
 
 # print idf_map
 
