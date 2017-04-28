@@ -6,10 +6,11 @@ import math
 from nltk.corpus import stopwords
 import sys
 import heapq
+import os,errno
 reload(sys)
 sys.setdefaultencoding('utf8')
 stop = stopwords.words('portuguese')
-print stop
+# print stop
 folder_year = ['/PT2010-2011','/PT2012-2013']
 folder_type = "/docs"
 directory_main = "PriberamCompressiveSummarizationCorpus"
@@ -26,7 +27,9 @@ def makelist(dir):
 			for file in files:
 
 				fp = open(file,'r')
-				article = fp.read()
+				article = []
+				article.append(fp.read())
+				article.append(file)
 				articles_list.append(article)
 	
 	
@@ -37,7 +40,8 @@ articles_corpus = makelist(directory_main)
 idf_map = {}
 # print "one"
 for article in articles_corpus:
-	lines = article.split()
+	actual_article = article[0]
+	lines = actual_article.split()
 	for word in lines:
 		if word not in stop:
 			idf_map[word] = 0
@@ -46,14 +50,16 @@ for article in articles_corpus:
 for key in idf_map:
 	for article in articles_corpus:
 		
-		if key in article:
+		if key in article[0]:
 			idf_map[key] += 1
 for key in idf_map:
 	idf_map[key] = math.log(801*1.0/(1+idf_map[key]))
 # for all the articles
 
 for article in articles_corpus:
-	lines = article.split()
+	# output = {}
+
+	lines = article[0].split()
 	tf_map = {}
 	for word in lines:
 		if word not in stop:
@@ -64,7 +70,7 @@ for article in articles_corpus:
 	for key in tf_map:
 		tf_map[key] = tf_map[key] * 1.0 * idf_map[key]
 	#for each sentence calculate the tf-idf score
-	lines = article.split('\n')
+	lines = article[0].split('\n')
 	sentence_dict = {}
 	for line in lines:
 		words = line.split()
@@ -78,10 +84,24 @@ for article in articles_corpus:
 			sentence_dict[line] = tf_idf_sum
 		else:
 			sentence_dict[line] = tf_idf_sum * 1.0/(sentence_length)
-	print "****************"
-	print heapq.nlargest(3, sentence_dict, key=sentence_dict.get)
-	print article
-	print "****************"
+	# print "****************"
+
+	# print heapq.nlargest(3, sentence_dict, key=sentence_dict.get)
+	# print article
+	# print "****************"
+	# output["summary"] = heapq.nlargest(3, sentence_dict, key=sentence_dict.get)
+	# output["article"] = article[0]
+	filename = "outputSummaries/"+article[1]+"_summary.txt"
+	if not os.path.exists(os.path.dirname(filename)):
+		try:
+			os.makedirs(os.path.dirname(filename))
+		except OSError as exc: # Guard against race condition
+			if exc.errno != errno.EEXIST:
+				raise
+	output = heapq.nlargest(3, sentence_dict, key=sentence_dict.get)
+	with open(filename, "w") as f:
+		f.write(output[0]+"\n"+output[1]+"\n"+output[2])
+	# f.close()
 
 
 # for the test article
