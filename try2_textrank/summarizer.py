@@ -8,8 +8,8 @@ from graph import remove_unreachable_nodes as _remove_unreachable_nodes
 from scipy.sparse import csr_matrix
 from scipy.linalg import eig
 from numpy import empty as empty_matrix
-
-
+from collections import Counter
+from math import sqrt
 
 def pagerank_weighted_scipy(graph, damping=0.85):
     adjacency_matrix = build_adjacency_matrix(graph)
@@ -76,7 +76,7 @@ def _set_graph_edge_weights(graph):
                 if similarity != 0:
                     graph.add_edge(edge, similarity)
 
-# #similarity from summa
+# # #similarity from summa
 def _get_similarity(s1, s2):
     # print "Called get similarity!!!"
 
@@ -94,7 +94,7 @@ def _get_similarity(s1, s2):
     return common_word_count / (log_s1 + log_s2)
 
 
-#Jaccard similarity
+# Jaccard similarity
 # def _get_similarity(s1, s2):
 #     # print "Called get similarity!!!"
 
@@ -104,20 +104,48 @@ def _get_similarity(s1, s2):
 #     common_word_count = _count_common_words(words_sentence_one, words_sentence_two)
 #     all_word_count = _count_all_words(words_sentence_one, words_sentence_two)
 
+#     # if all_word_count == 0:
+#     #     return 0
+#     return common_word_count * 1./ all_word_count
 
-#     if all_word_count == 0:
-#         return 0
-#     return common_word_count / all_word_count
+# Cosine Similarity - TF
+# def _get_similarity(s1, s2):
+#     # print "Called get similarity!!!"
 
+#     words_sentence_one = s1.split()
+#     words_sentence_two = s2.split()
+
+#     S1Dict = Counter(words_sentence_one)
+#     S2Dict = Counter(words_sentence_two)
+
+#     # common_word_count = _count_common_words(words_sentence_one, words_sentence_two)
+
+#     common_words = list(set(words_sentence_one) & set(words_sentence_two))
+#     dotProduct = 0.0
+#     for word in common_words:
+#         if word in S1Dict.keys() and word in S2Dict.keys():
+#             dotProduct+= S1Dict[word] * S2Dict[word];
+
+#     S1Norm = sum(S1Dict[word]**2 for word in set(words_sentence_one))
+#     S2Norm = sum(S2Dict[word]**2 for word in set(words_sentence_two))
+
+#     if S1Norm > 0 and S2Norm > 0:
+#         return dotProduct / (sqrt(S1Norm) * sqrt(S2Norm))
+#     else:
+#         return 0.0
+
+    # if all_word_count == 0:
+    #     return 0
+    # return common_word_count * 1./ all_word_count
 
 
 def _count_common_words(words_sentence_one, words_sentence_two):
     # print "Called count common words!!!"
     return len(set(words_sentence_one) & set(words_sentence_two))
 
-# def _count_all_words(words_sentence_one, words_sentence_two):
-#     # print "Called count common words!!!"
-#     return len(set(words_sentence_one) | set(words_sentence_two))
+def _count_all_words(words_sentence_one, words_sentence_two):
+    # print "Called count common words!!!"
+    return len(set(words_sentence_one) | set(words_sentence_two))
 
 
 def _format_results(extracted_sentences, split, score):
@@ -157,7 +185,7 @@ def _extract_most_important_sentences(sentences, ratio, words):
 
 
 def summarize(text, ratio=0.2, words=None, language="english", split=False, scores=False):
-    print "Called summarize!!"
+    # print "Called summarize!!"
 
     # Gets a list of processed sentences.
     sentences = _clean_text_by_sentences(text, language)
