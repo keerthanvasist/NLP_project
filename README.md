@@ -8,7 +8,11 @@ In this project, we’ve attempted to build extractive summarizers for a news ar
 
 
 #Contributors
+
 Janhavi Kulkarni (jskulkar@usc.edu)
+
 Keerthan Vasist (harish@usc.edu)
+
 Mahesh Pottippala Subrahmanya (pottippa@usc.edu)
+
 Ravishankar Sivaraman (rsivaraman@usc.edu)
