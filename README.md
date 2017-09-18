@@ -15,4 +15,4 @@ Keerthan Vasist (harish@usc.edu)
 
 Mahesh Pottippala Subrahmanya (pottippa@usc.edu)
 
-Ravishankar Sivaraman (rsivaraman@usc.edu)
+Ravishankar Sivaraman (rsivaram@usc.edu)
